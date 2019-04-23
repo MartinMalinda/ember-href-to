@@ -18,6 +18,12 @@ export default {
     if (typeof(FastBoot) === "undefined") {
       let hrefToClickHandler = function _hrefToClickHandler(e) {
         let link = e.target.tagName === 'A' ? e.target : closestLink(e.target);
+        let origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+
+        if(link && link.indexOf(origin) === 0){
+          link = link.replace(origin, '');
+        } 
+
         if (link) {
           let hrefTo = new HrefTo(applicationInstance, e, link);
           hrefTo.maybeHandle();
